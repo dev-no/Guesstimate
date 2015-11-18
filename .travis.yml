@@ -2,16 +2,13 @@ language: php
 
 php:
   - 5.5
-  - 5.6
-  - 7.0
-  - hhvm
 
 before_script:
   - cp .env.travis .env
   - mysql -e 'create database homestead_test;'
   - composer self-update
   - composer install
-  - chmod -R 777 app/storage
+  - chmod -R 777 storage
   - php artisan migrate
 
 script:
