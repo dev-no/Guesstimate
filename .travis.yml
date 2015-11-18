@@ -3,11 +3,16 @@ language: php
 php:
   - 5.5
   - 5.6
+  - 7.0
   - hhvm
 
 before_script:
-  - curl -s http://getcomposer.org/installer | php
-  - php composer.phar install --dev --prefer-source
+  - cp .env.travis .env
+  - mysql -e 'create database homestead_test;'
+  - composer self-update
+  - composer install
+  - chmod -R 777 app/storage
+  - php artisan migrate
 
 script:
   - mkdir -p build/logs
